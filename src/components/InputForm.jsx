@@ -1,4 +1,4 @@
-export default function InputForm({ values, onChange }) {
+export default function InputForm({ title, color, values, onChange, onRemove }) {
   function handle(field, raw) {
     const num = raw === '' ? '' : Number(raw);
     onChange({ ...values, [field]: num });
@@ -6,12 +6,24 @@ export default function InputForm({ values, onChange }) {
 
   return (
     <div className="card">
-      <h2 className="card-title">Investment Parameters</h2>
+      <div className="card-title-row">
+        <h2 className="card-title">
+          {title && (
+            <span className="scenario-dot" style={{ background: color }} />
+          )}
+          {title ? `${title} — Parameters` : 'Investment Parameters'}
+        </h2>
+        {onRemove && (
+          <button className="remove-scenario-btn" onClick={onRemove} title="Remove scenario">
+            ✕
+          </button>
+        )}
+      </div>
 
       <div className="field">
-        <label htmlFor="initialInvestment">Initial Investment ($)</label>
+        <label htmlFor={`initialInvestment-${title}`}>Initial Investment ($)</label>
         <input
-          id="initialInvestment"
+          id={`initialInvestment-${title}`}
           type="number"
           min="0"
           value={values.initialInvestment}
@@ -20,9 +32,9 @@ export default function InputForm({ values, onChange }) {
       </div>
 
       <div className="field">
-        <label htmlFor="monthlyRevenue">Expected Monthly Revenue ($)</label>
+        <label htmlFor={`monthlyRevenue-${title}`}>Expected Monthly Revenue ($)</label>
         <input
-          id="monthlyRevenue"
+          id={`monthlyRevenue-${title}`}
           type="number"
           min="0"
           value={values.monthlyRevenue}
@@ -31,9 +43,9 @@ export default function InputForm({ values, onChange }) {
       </div>
 
       <div className="field">
-        <label htmlFor="monthlyCosts">Monthly Operating Costs ($)</label>
+        <label htmlFor={`monthlyCosts-${title}`}>Monthly Operating Costs ($)</label>
         <input
-          id="monthlyCosts"
+          id={`monthlyCosts-${title}`}
           type="number"
           min="0"
           value={values.monthlyCosts}
@@ -42,9 +54,9 @@ export default function InputForm({ values, onChange }) {
       </div>
 
       <div className="field">
-        <label htmlFor="period">Calculation Period (months)</label>
+        <label htmlFor={`period-${title}`}>Calculation Period (months)</label>
         <select
-          id="period"
+          id={`period-${title}`}
           value={values.period}
           onChange={e => handle('period', e.target.value)}
         >

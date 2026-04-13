@@ -278,3 +278,164 @@ body {
   display: flex;
   flex-direction: column;
 }
+
+/* ── Comparison mode ── */
+
+/* Card title row — holds title + optional remove button */
+.card-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.875rem;
+  border-bottom: 1px solid #e0e2e8;
+}
+
+.card-title-row .card-title {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Coloured dot next to scenario label */
+.scenario-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ✕ remove button on Scenario 2 card */
+.remove-scenario-btn {
+  background: none;
+  border: 1px solid #e0e2e8;
+  border-radius: 3px;
+  color: #5a6070;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  cursor: pointer;
+  line-height: 1;
+  transition: border-color 0.15s, color 0.15s;
+  flex-shrink: 0;
+}
+
+.remove-scenario-btn:hover {
+  border-color: #e5143d;
+  color: #e5143d;
+}
+
+/* Add Scenario button */
+.add-scenario-btn {
+  display: block;
+  width: 100%;
+  padding: 0.7rem 1rem;
+  margin-bottom: 1.5rem;
+  background: none;
+  border: 1.5px dashed #b0b8c8;
+  border-radius: 4px;
+  color: #5a6070;
+  font-size: 0.875rem;
+  font-weight: 600;
+  font-family: inherit;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+
+.add-scenario-btn:hover {
+  border-color: #3399ff;
+  color: #3399ff;
+  background: #f0f6ff;
+}
+
+/* Two-column comparison results layout */
+.comparison-results {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+@media (max-width: 900px) {
+  .comparison-results {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Each scenario column in comparison results */
+.scenario-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.875rem;
+}
+
+.scenario-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: #1a1a2e;
+}
+
+.scenario-col .summary {
+  font-size: 0.82rem;
+  padding: 0.65rem 0.875rem;
+  margin-bottom: 1rem;
+}
+
+/* In comparison mode, metric values are slightly smaller to fit */
+.scenario-col .metric-value {
+  font-size: 1.15rem;
+}
+
+.scenario-col .metrics {
+  gap: 0.625rem;
+}
+
+/* Chart legend */
+.chart-legend {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #5a6070;
+}
+
+.legend-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+/* Scenario 2 tooltip colours (amber) */
+.tooltip-positive2 {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #f59e0b;
+}
+
+.tooltip-negative2 {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #e5143d;
+}
+
+.tooltip-label {
+  font-size: 0.7rem;
+  opacity: 0.65;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
