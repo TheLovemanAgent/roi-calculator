@@ -1,3 +1,15 @@
+/* ── EPAM Design System ─────────────────────────────────────────
+   Primary blue:   #3399ff
+   Dark navy:      #1a1a2e
+   Page bg:        #f4f4f6
+   Card bg:        #ffffff
+   Text primary:   #1a1a2e
+   Text muted:     #5a6070
+   Border:         #e0e2e8
+   Success:        #1db37e
+   Danger:         #e5143d
+──────────────────────────────────────────────────────────────── */
+
 *, *::before, *::after {
   margin: 0;
   padding: 0;
@@ -5,48 +17,102 @@
 }
 
 body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background-color: #fffbeb;
-  color: #292524;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  background-color: #f4f4f6;
+  color: #1a1a2e;
   min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* ── Header ── */
+/* ── Top nav bar ── */
+.app-nav {
+  background-color: #1a1a2e;
+  padding: 0 2.5rem;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+}
+
+.nav-logo-mark {
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: #3399ff;
+  text-transform: uppercase;
+}
+
+.nav-logo-separator {
+  width: 1px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 0 0.75rem;
+}
+
+.nav-logo-label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.55);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* ── Hero header ── */
 .app-header {
-  background-color: #f59e0b;
-  color: #fff;
-  padding: 1.5rem 2rem;
-  text-align: center;
+  background-color: #1a1a2e;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 2.75rem 2.5rem 2.5rem;
+}
+
+.app-header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .app-header h1 {
-  font-size: 1.75rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  font-size: 2rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+}
+
+.app-header h1 span {
+  color: #3399ff;
 }
 
 .app-header p {
-  margin-top: 0.25rem;
+  margin-top: 0.5rem;
   font-size: 0.95rem;
-  opacity: 0.9;
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 400;
 }
 
-/* ── Layout ── */
-.app {
-  min-height: 100vh;
+/* ── Blue accent bar below header ── */
+.accent-bar {
+  height: 3px;
+  background: linear-gradient(90deg, #3399ff 0%, #1a66cc 100%);
 }
 
+/* ── Main layout ── */
 .app-layout {
   display: grid;
-  grid-template-columns: 380px 1fr;
+  grid-template-columns: 360px 1fr;
   gap: 1.5rem;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem 1.5rem;
+  padding: 2rem 1.5rem 3rem;
   align-items: start;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 800px) {
   .app-layout {
     grid-template-columns: 1fr;
     padding: 1rem;
@@ -55,10 +121,10 @@ body {
 
 /* ── Cards ── */
 .card {
-  background: #fff;
-  border-radius: 12px;
-  padding: 1.5rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.04);
+  background: #ffffff;
+  border-radius: 4px;
+  padding: 1.75rem;
+  box-shadow: 0 1px 3px rgba(26, 26, 46, 0.08), 0 0 0 1px rgba(26, 26, 46, 0.06);
   margin-bottom: 1.5rem;
 }
 
@@ -67,17 +133,19 @@ body {
 }
 
 .card-title {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #92400e;
-  margin-bottom: 1.25rem;
-  padding-bottom: 0.75rem;
-  border-bottom: 2px solid #fde68a;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #5a6070;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.875rem;
+  border-bottom: 1px solid #e0e2e8;
 }
 
 /* ── Form ── */
 .field {
-  margin-bottom: 1.1rem;
+  margin-bottom: 1.25rem;
 }
 
 .field:last-child {
@@ -86,81 +154,90 @@ body {
 
 .field label {
   display: block;
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: #57534e;
-  margin-bottom: 0.4rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #1a1a2e;
+  margin-bottom: 0.45rem;
+  letter-spacing: 0.01em;
 }
 
 .field input,
 .field select {
   width: 100%;
-  padding: 0.55rem 0.75rem;
-  border: 1.5px solid #d6d3d1;
-  border-radius: 8px;
-  font-size: 1rem;
+  padding: 0.6rem 0.875rem;
+  border: 1.5px solid #e0e2e8;
+  border-radius: 3px;
+  font-size: 0.95rem;
   font-family: inherit;
-  background: #fffbeb;
-  color: #292524;
+  background: #ffffff;
+  color: #1a1a2e;
   transition: border-color 0.15s, box-shadow 0.15s;
   outline: none;
+  appearance: auto;
 }
 
 .field input:focus,
 .field select:focus {
-  border-color: #f59e0b;
-  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);
+  border-color: #3399ff;
+  box-shadow: 0 0 0 3px rgba(51, 153, 255, 0.12);
+}
+
+.field input:hover,
+.field select:hover {
+  border-color: #b0b8c8;
 }
 
 /* ── Summary ── */
 .summary {
-  font-size: 0.95rem;
-  line-height: 1.6;
-  color: #57534e;
-  background: #fffbeb;
-  border-left: 4px solid #f59e0b;
-  padding: 0.75rem 1rem;
-  border-radius: 0 8px 8px 0;
-  margin-bottom: 1.25rem;
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: #3c4252;
+  background: #f0f6ff;
+  border-left: 3px solid #3399ff;
+  padding: 0.875rem 1rem;
+  border-radius: 0 3px 3px 0;
+  margin-bottom: 1.5rem;
 }
 
-/* ── Metrics ── */
+/* ── Metrics grid ── */
 .metrics {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1rem;
+  gap: 0.875rem;
 }
 
 .metric {
-  background: #fef9ee;
-  border: 1px solid #fde68a;
-  border-radius: 10px;
-  padding: 1rem;
+  background: #f9f9fb;
+  border: 1px solid #e0e2e8;
+  border-top: 3px solid #3399ff;
+  border-radius: 3px;
+  padding: 1rem 1.125rem;
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
+  gap: 0.35rem;
 }
 
 .metric-label {
-  font-size: 0.78rem;
-  font-weight: 500;
+  font-size: 0.68rem;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: #92400e;
+  letter-spacing: 0.09em;
+  color: #5a6070;
 }
 
 .metric-value {
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: #292524;
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: #1a1a2e;
+  letter-spacing: -0.02em;
 }
 
 .metric-value.positive {
-  color: #15803d;
+  color: #1db37e;
 }
 
 .metric-value.negative {
-  color: #dc2626;
+  color: #e5143d;
 }
 
 /* ── Chart ── */
@@ -169,27 +246,31 @@ body {
 }
 
 .chart-tooltip {
-  background: #fff;
-  border: 1px solid #fde68a;
-  border-radius: 8px;
+  background: #1a1a2e;
+  border: none;
+  border-radius: 3px;
   padding: 0.6rem 0.9rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 }
 
 .tooltip-month {
-  font-size: 0.8rem;
-  color: #78716c;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.5);
   margin-bottom: 0.2rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 .tooltip-positive {
   font-weight: 700;
-  color: #15803d;
+  font-size: 0.95rem;
+  color: #1db37e;
 }
 
 .tooltip-negative {
   font-weight: 700;
-  color: #dc2626;
+  font-size: 0.95rem;
+  color: #e5143d;
 }
 
 /* ── Right column ── */

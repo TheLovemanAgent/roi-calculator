@@ -25,10 +25,21 @@ export default function App() {
 
   return (
     <div className="app">
+      <nav className="app-nav">
+        <div className="nav-logo">
+          <span className="nav-logo-mark">EPAM</span>
+          <span className="nav-logo-separator" />
+          <span className="nav-logo-label">ROI Calculator</span>
+        </div>
+      </nav>
+
       <header className="app-header">
-        <h1>Business ROI Calculator</h1>
-        <p>Enter your numbers and see results instantly</p>
+        <div className="app-header-inner">
+          <h1>Business <span>ROI</span> Calculator</h1>
+          <p>Enter your numbers and see results instantly</p>
+        </div>
       </header>
+      <div className="accent-bar" />
 
       <main className="app-layout">
         <aside className="left-column">

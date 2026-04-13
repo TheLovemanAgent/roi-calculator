@@ -29,7 +29,7 @@ export default function CashFlowChart({ data }) {
       <h2 className="card-title">Cumulative Cash Flow</h2>
       <ResponsiveContainer width="100%" height={280}>
         <LineChart data={data} margin={{ top: 10, right: 20, left: 10, bottom: 0 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#e5e0d0" />
+          <CartesianGrid strokeDasharray="3 3" stroke="#e0e2e8" />
           <XAxis
             dataKey="month"
             label={{ value: 'Month', position: 'insideBottom', offset: -2, fontSize: 12 }}
@@ -37,14 +37,14 @@ export default function CashFlowChart({ data }) {
           />
           <YAxis tickFormatter={formatYAxis} tick={{ fontSize: 12 }} width={60} />
           <Tooltip content={<CustomTooltip />} />
-          <ReferenceLine y={0} stroke="#9ca3af" strokeDasharray="5 5" label={{ value: 'Break-even', position: 'right', fontSize: 11, fill: '#6b7280' }} />
+          <ReferenceLine y={0} stroke="#b0b8c8" strokeDasharray="5 5" label={{ value: 'Break-even', position: 'right', fontSize: 11, fill: '#5a6070' }} />
           <Line
             type="monotone"
             dataKey="cashFlow"
-            stroke="#f59e0b"
+            stroke="#3399ff"
             strokeWidth={2.5}
             dot={false}
-            activeDot={{ r: 5, fill: '#f59e0b' }}
+            activeDot={{ r: 5, fill: '#3399ff' }}
           />
         </LineChart>
       </ResponsiveContainer>
