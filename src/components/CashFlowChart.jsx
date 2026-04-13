@@ -49,21 +49,35 @@ function renderLegend() {
   );
 }
 
-export default function CashFlowChart({ data, showComparison }) {
+export default function CashFlowChart({ data, showComparison, isDark }) {
+  const gridColor    = isDark ? '#2c3058' : '#e0e2e8';
+  const tickColor    = isDark ? '#7a86a0' : '#5a6070';
+  const refLineColor = isDark ? '#3d4570' : '#b0b8c8';
+  const refLabelColor = isDark ? '#7a86a0' : '#5a6070';
+
   return (
     <div className="card chart-card">
       <h2 className="card-title">Cumulative Cash Flow</h2>
       <ResponsiveContainer width="100%" height={showComparison ? 300 : 280}>
         <LineChart data={data} margin={{ top: 10, right: 20, left: 10, bottom: showComparison ? 30 : 10 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#e0e2e8" />
+          <CartesianGrid strokeDasharray="3 3" stroke={gridColor} />
           <XAxis
             dataKey="month"
-            label={{ value: 'Month', position: 'insideBottom', offset: -2, fontSize: 12 }}
-            tick={{ fontSize: 12 }}
+            label={{ value: 'Month', position: 'insideBottom', offset: -2, fontSize: 12, fill: tickColor }}
+            tick={{ fontSize: 12, fill: tickColor }}
           />
-          <YAxis tickFormatter={formatYAxis} tick={{ fontSize: 12 }} width={60} />
+          <YAxis
+            tickFormatter={formatYAxis}
+            tick={{ fontSize: 12, fill: tickColor }}
+            width={60}
+          />
           <Tooltip content={<CustomTooltip showComparison={showComparison} />} />
-          <ReferenceLine y={0} stroke="#b0b8c8" strokeDasharray="5 5" label={{ value: 'Break-even', position: 'right', fontSize: 11, fill: '#5a6070' }} />
+          <ReferenceLine
+            y={0}
+            stroke={refLineColor}
+            strokeDasharray="5 5"
+            label={{ value: 'Break-even', position: 'right', fontSize: 11, fill: refLabelColor }}
+          />
           <Line
             type="monotone"
             dataKey="cashFlow"

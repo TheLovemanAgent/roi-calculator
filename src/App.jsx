@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import InputForm from './components/InputForm';
 import Results from './components/Results';
 import CashFlowChart from './components/CashFlowChart';
 import MonthlyTable from './components/MonthlyTable';
 import { calculate, validate } from './utils/calculations';
+import { exportPDF } from './utils/exportPDF';
 import './App.css';
 
 const DEFAULT_VALUES = {
@@ -36,6 +37,27 @@ export default function App() {
   const [values2, setValues2] = useState(DEFAULT_VALUES_2);
   const [showComparison, setShowComparison] = useState(false);
   const [showTable, setShowTable] = useState(false);
+  const [exporting, setExporting] = useState(false);
+  const [isDark, setIsDark] = useState(false);
+  const chartRef = useRef(null);
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+  }, [isDark]);
+
+  async function handleExport() {
+    setExporting(true);
+    try {
+      await exportPDF({
+        values, result,
+        values2, result2,
+        showComparison,
+        chartElement: chartRef.current,
+      });
+    } finally {
+      setExporting(false);
+    }
+  }
 
   const errors1 = validate(values);
   const errors2 = showComparison ? validate(values2) : {};
@@ -70,6 +92,10 @@ export default function App() {
           <span className="nav-logo-separator" />
           <span className="nav-logo-label">ROI Calculator</span>
         </div>
+        <button className="theme-toggle-btn" onClick={() => setIsDark(d => !d)}>
+          <span className="theme-toggle-icon">{isDark ? '☀' : '☾'}</span>
+          {isDark ? 'Light' : 'Dark'}
+        </button>
       </nav>
 
       <header className="app-header">
@@ -126,14 +152,26 @@ export default function App() {
             period2={Number(values2.period)}
           />
 
-          <CashFlowChart data={chartData} showComparison={showComparison} />
+          <div ref={chartRef}>
+            <CashFlowChart data={chartData} showComparison={showComparison} isDark={isDark} />
+          </div>
 
-          <button
-            className="toggle-table-btn"
-            onClick={() => setShowTable(prev => !prev)}
-          >
-            {showTable ? 'Hide Monthly Breakdown' : 'Show Monthly Breakdown'}
-          </button>
+          <div className="action-row">
+            <button
+              className="download-btn"
+              onClick={handleExport}
+              disabled={exporting || !isValid}
+            >
+              {exporting ? 'Generating PDF…' : 'Download Snapshot'}
+            </button>
+
+            <button
+              className="toggle-table-btn"
+              onClick={() => setShowTable(prev => !prev)}
+            >
+              {showTable ? 'Hide Monthly Breakdown' : 'Show Monthly Breakdown'}
+            </button>
+          </div>
 
           {showTable && !showComparison && (
             <MonthlyTable
