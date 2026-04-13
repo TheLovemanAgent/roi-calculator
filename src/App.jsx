@@ -2,6 +2,7 @@ import { useState } from 'react';
 import InputForm from './components/InputForm';
 import Results from './components/Results';
 import CashFlowChart from './components/CashFlowChart';
+import MonthlyTable from './components/MonthlyTable';
 import { calculate, validate } from './utils/calculations';
 import './App.css';
 
@@ -34,6 +35,7 @@ export default function App() {
   const [values, setValues] = useState(DEFAULT_VALUES);
   const [values2, setValues2] = useState(DEFAULT_VALUES_2);
   const [showComparison, setShowComparison] = useState(false);
+  const [showTable, setShowTable] = useState(false);
 
   const errors1 = validate(values);
   const errors2 = showComparison ? validate(values2) : {};
@@ -116,13 +118,49 @@ export default function App() {
               Fix the errors in the form to see your results
             </div>
           )}
+
           <Results
             result={result}
             period={Number(period)}
             result2={result2}
             period2={Number(values2.period)}
           />
+
           <CashFlowChart data={chartData} showComparison={showComparison} />
+
+          <button
+            className="toggle-table-btn"
+            onClick={() => setShowTable(prev => !prev)}
+          >
+            {showTable ? 'Hide Monthly Breakdown' : 'Show Monthly Breakdown'}
+          </button>
+
+          {showTable && !showComparison && (
+            <MonthlyTable
+              cashFlowData={result.cashFlowData}
+              monthlyRevenue={Number(monthlyRevenue) || 0}
+              monthlyCosts={Number(monthlyCosts) || 0}
+            />
+          )}
+
+          {showTable && showComparison && (
+            <>
+              <MonthlyTable
+                cashFlowData={result.cashFlowData}
+                monthlyRevenue={Number(monthlyRevenue) || 0}
+                monthlyCosts={Number(monthlyCosts) || 0}
+                title="Scenario 1"
+                color="#3399ff"
+              />
+              <MonthlyTable
+                cashFlowData={result2.cashFlowData}
+                monthlyRevenue={Number(values2.monthlyRevenue) || 0}
+                monthlyCosts={Number(values2.monthlyCosts) || 0}
+                title="Scenario 2"
+                color="#f59e0b"
+              />
+            </>
+          )}
         </section>
       </main>
     </div>
