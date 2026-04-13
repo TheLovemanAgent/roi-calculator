@@ -1,16 +1,26 @@
-export default function InputForm({ title, color, values, onChange, onRemove }) {
+import { useState } from 'react';
+
+export default function InputForm({ title, color, values, onChange, onRemove, errors = {} }) {
+  const [touched, setTouched] = useState({});
+
   function handle(field, raw) {
     const num = raw === '' ? '' : Number(raw);
     onChange({ ...values, [field]: num });
+  }
+
+  function touch(field) {
+    setTouched(prev => ({ ...prev, [field]: true }));
+  }
+
+  function fieldError(field) {
+    return touched[field] ? errors[field] : undefined;
   }
 
   return (
     <div className="card">
       <div className="card-title-row">
         <h2 className="card-title">
-          {title && (
-            <span className="scenario-dot" style={{ background: color }} />
-          )}
+          {title && <span className="scenario-dot" style={{ background: color }} />}
           {title ? `${title} — Parameters` : 'Investment Parameters'}
         </h2>
         {onRemove && (
@@ -20,7 +30,7 @@ export default function InputForm({ title, color, values, onChange, onRemove }) 
         )}
       </div>
 
-      <div className="field">
+      <div className={`field${fieldError('initialInvestment') ? ' field--error' : ''}`}>
         <label htmlFor={`initialInvestment-${title}`}>Initial Investment ($)</label>
         <input
           id={`initialInvestment-${title}`}
@@ -28,10 +38,14 @@ export default function InputForm({ title, color, values, onChange, onRemove }) 
           min="0"
           value={values.initialInvestment}
           onChange={e => handle('initialInvestment', e.target.value)}
+          onBlur={() => touch('initialInvestment')}
         />
+        {fieldError('initialInvestment') && (
+          <span className="error-message">{fieldError('initialInvestment')}</span>
+        )}
       </div>
 
-      <div className="field">
+      <div className={`field${fieldError('monthlyRevenue') ? ' field--error' : ''}`}>
         <label htmlFor={`monthlyRevenue-${title}`}>Expected Monthly Revenue ($)</label>
         <input
           id={`monthlyRevenue-${title}`}
@@ -39,10 +53,14 @@ export default function InputForm({ title, color, values, onChange, onRemove }) 
           min="0"
           value={values.monthlyRevenue}
           onChange={e => handle('monthlyRevenue', e.target.value)}
+          onBlur={() => touch('monthlyRevenue')}
         />
+        {fieldError('monthlyRevenue') && (
+          <span className="error-message">{fieldError('monthlyRevenue')}</span>
+        )}
       </div>
 
-      <div className="field">
+      <div className={`field${fieldError('monthlyCosts') ? ' field--error' : ''}`}>
         <label htmlFor={`monthlyCosts-${title}`}>Monthly Operating Costs ($)</label>
         <input
           id={`monthlyCosts-${title}`}
@@ -50,7 +68,11 @@ export default function InputForm({ title, color, values, onChange, onRemove }) 
           min="0"
           value={values.monthlyCosts}
           onChange={e => handle('monthlyCosts', e.target.value)}
+          onBlur={() => touch('monthlyCosts')}
         />
+        {fieldError('monthlyCosts') && (
+          <span className="error-message">{fieldError('monthlyCosts')}</span>
+        )}
       </div>
 
       <div className="field">

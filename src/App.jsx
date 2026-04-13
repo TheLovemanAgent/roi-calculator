@@ -2,7 +2,7 @@ import { useState } from 'react';
 import InputForm from './components/InputForm';
 import Results from './components/Results';
 import CashFlowChart from './components/CashFlowChart';
-import { calculate } from './utils/calculations';
+import { calculate, validate } from './utils/calculations';
 import './App.css';
 
 const DEFAULT_VALUES = {
@@ -34,6 +34,10 @@ export default function App() {
   const [values, setValues] = useState(DEFAULT_VALUES);
   const [values2, setValues2] = useState(DEFAULT_VALUES_2);
   const [showComparison, setShowComparison] = useState(false);
+
+  const errors1 = validate(values);
+  const errors2 = showComparison ? validate(values2) : {};
+  const isValid = Object.keys(errors1).length === 0 && Object.keys(errors2).length === 0;
 
   const { initialInvestment, monthlyRevenue, monthlyCosts, period } = values;
   const result = calculate(
@@ -81,6 +85,7 @@ export default function App() {
             color="#3399ff"
             values={values}
             onChange={setValues}
+            errors={errors1}
           />
 
           {!showComparison && (
@@ -99,11 +104,18 @@ export default function App() {
               values={values2}
               onChange={setValues2}
               onRemove={() => setShowComparison(false)}
+              errors={errors2}
             />
           )}
         </aside>
 
-        <section className="right-column">
+        <section className={`right-column${!isValid ? ' results-disabled' : ''}`}>
+          {!isValid && (
+            <div className="results-blocked">
+              <span className="results-blocked-icon">⚠</span>
+              Fix the errors in the form to see your results
+            </div>
+          )}
           <Results
             result={result}
             period={Number(period)}

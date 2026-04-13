@@ -187,6 +187,60 @@ body {
   border-color: #b0b8c8;
 }
 
+/* ── Validation ── */
+.field--error input,
+.field--error select {
+  border-color: #e5143d;
+  background: #fff8f8;
+}
+
+.field--error input:focus,
+.field--error select:focus {
+  border-color: #e5143d;
+  box-shadow: 0 0 0 3px rgba(229, 20, 61, 0.12);
+}
+
+.error-message {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #e5143d;
+}
+
+/* ── Disabled results ── */
+.results-disabled {
+  position: relative;
+  opacity: 0.4;
+  pointer-events: none;
+  user-select: none;
+}
+
+.results-blocked {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  background: #1a1a2e;
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0.75rem 1.25rem;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.results-blocked-icon {
+  color: #f59e0b;
+  font-size: 1rem;
+}
+
 /* ── Summary ── */
 .summary {
   font-size: 0.9rem;
@@ -277,6 +331,7 @@ body {
 .right-column {
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 /* ── Comparison mode ── */
